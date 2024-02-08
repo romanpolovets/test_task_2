@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+def allureVersion = "2.24.0"
+def cucumberVersion = "7.13.0"
+
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.21'
+
+    testImplementation(platform("io.cucumber:cucumber-bom:$cucumberVersion"))
+    testImplementation("io.cucumber:cucumber-junit-platform-engine")
+    testImplementation("io.cucumber:cucumber-java")
+
+    testImplementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm")
+    testImplementation("io.qameta.allure:allure-junit-platform")
+
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+
+    testImplementation("org.slf4j:slf4j-simple:1.7.30")
+
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    implementation 'log4j:log4j:1.2.17'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+allure {
+    version = allureVersion
+}
